@@ -1,0 +1,19 @@
+{
+  "name": "hapitest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ken",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.222.1",
+    "boom": "^7.2.0",
+    "good": "^8.1.1",
+    "hapi": "^17.3.1",
+    "hapi-swagger": "^9.1.1",
+    "joi": "^13.1.2"
+  }
+}

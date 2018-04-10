@@ -29,6 +29,7 @@ const people = { // our "users database"
     }
 };
 
+server.route(require('./controller/parseAddress'));
 
 server.route({
   method: 'POST',
@@ -81,7 +82,7 @@ async function start() {
       verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm
     });
 
-    server.auth.default('jwt');
+    // server.auth.default('jwt');
 
     server.route({
       method: 'GET',
@@ -92,9 +93,7 @@ async function start() {
           return 'hello world';
         },
       },
-    })
-
-
+    });
 
     await server.start((err) => {
       if (err) throw err;

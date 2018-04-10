@@ -18,7 +18,8 @@
     "hapi-swagger": "^9.1.1",
     "joi": "^13.1.2",
     "jsonwebtoken": "^8.2.1",
-    "mongoose": "^5.0.14"
+    "mongoose": "^5.0.14",
+    "parse-address": "0.0.10"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"

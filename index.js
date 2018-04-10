@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 const path = require('path');
 const Joi = require('joi');
 const mongoose = require('mongoose');
-
+const createToken = require('./util/token');
 
 debug('boot', 'test');
 
@@ -52,17 +52,17 @@ server.route({
   },
 })
 
-server.route({
-  method: 'GET',
-  path: '/hello',
-  config: {
-    handler: (request, h) => {
-      return 'hello world';
-    },
-  },
-})
+const user = {
+  id: 1,
+  username: 'Jen',
+}
+
+const test = createToken(user);
+console.log(test);
+
 
 const validate = async (decoded, request) => {
+  console.log(decoded);
   if (!people[decoded.id]) {
     return { isValid: false };
   } else {
@@ -76,12 +76,24 @@ async function start() {
 
 
     server.auth.strategy('jwt', 'jwt',
-    { key: 'NeverShareYourSecret',          // Never Share your secret key
+    { key: 'youcanttellmewhattodo',          // Never Share your secret key
       validate: validate,            // validate function defined above
       verifyOptions: { algorithms: [ 'HS256' ] } // pick a strong algorithm
     });
 
     server.auth.default('jwt');
+
+    server.route({
+      method: 'GET',
+      path: '/hello',
+      config: {
+        auth: 'jwt',
+        handler: (request, h) => {
+          return 'hello world';
+        },
+      },
+    })
+
 
 
     await server.start((err) => {

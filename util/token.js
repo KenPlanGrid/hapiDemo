@@ -10,7 +10,7 @@ const createToken = (user) => {
     scopes = 'admin';
   }
 
-  return jwt.sign({ id: user.id, username: user.username, scope: scopes }, secert, { algorithm: 'HS256', expiresIn: '1h' });
+  return jwt.sign({ id: user.id, username: user.username, scope: scopes }, secret, { algorithm: 'HS256', expiresIn: '1h' });
 }
 
 module.exports = createToken;

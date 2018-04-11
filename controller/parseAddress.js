@@ -1,23 +1,34 @@
 const Joi = require('joi');
+const parser = require('parse-address');
 
-module.exports = {
+module.exports = (server) => ({
   method: 'POST',
   path: '/hello33',
   config: {
-    handler: (request, h) => {
-      return 'hello world';
+    handler: async (request, h) => {
+      const parsedAddr = parser.parseLocation(request.payload.address);
+
+      if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return {
+        // message: 'Cannot parse address'
+        test: request.payload.address
+      };
+
+      const response = await server.inject({
+        method: 'POST',
+        url: '/mapboxer',
+        payload: {
+          hi: 'hello'
+        },
+      });
+
+      console.log(response);
+
+      return parsedAddr;
     },
     validate: {
       payload: Joi.object({
-        delivery_line_1: Joi.string().required(),
-        city: Joi.string().required(),
-        state: Joi.string().required(),
-        zipcode: Joi.string().required(),
-        product_type: Joi.string(),
-        mortgage_balance: Joi.number().min(0).max(50000000),
-        property_use: Joi.string(),
-        webhook: Joi.string(),
+        address: Joi.string().required(),
       }).unknown(),
     },
   },
-};
+});

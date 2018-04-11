@@ -29,7 +29,7 @@ const people = { // our "users database"
     }
 };
 
-server.route(require('./controller/parseAddress'));
+server.route(require('./controller/parseAddress')(server));
 
 server.route({
   method: 'POST',
@@ -74,7 +74,6 @@ const validate = async (decoded, request) => {
 async function start() {
   try {
     await server.register(require('hapi-auth-jwt2'));
-
 
     server.auth.strategy('jwt', 'jwt',
     { key: 'youcanttellmewhattodo',          // Never Share your secret key

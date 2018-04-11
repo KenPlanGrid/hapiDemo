@@ -1,11 +1,11 @@
 const Joi = require('joi');
 const parser = require('parse-address');
 
-module.exports = {
+module.exports = (server) => ({
   method: 'POST',
   path: '/hello33',
   config: {
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const parsedAddr = parser.parseLocation(request.payload.address);
 
       if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return request.payload.address;
@@ -25,4 +25,4 @@ module.exports = {
       }).unknown(),
     },
   },
-};
+});

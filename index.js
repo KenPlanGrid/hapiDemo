@@ -31,6 +31,8 @@ const people = { // our "users database"
 
 server.route(require('./controller/parseAddress')(server));
 
+server.route(require('./controller/mapBoxSearch'));
+
 server.route({
   method: 'POST',
   path: '/hello',

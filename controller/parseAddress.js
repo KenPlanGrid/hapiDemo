@@ -8,14 +8,20 @@ module.exports = (server) => ({
     handler: async (request, h) => {
       const parsedAddr = parser.parseLocation(request.payload.address);
 
-      if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return request.payload.address;
+      if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return {
+        // message: 'Cannot parse address'
+        test: request.payload.address
+      };
 
       const response = await server.inject({
+        method: 'POST',
         url: '/mapboxer',
         payload: {
           hi: 'hello'
         },
       });
+
+      console.log(response);
 
       return parsedAddr;
     },

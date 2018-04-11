@@ -10,6 +10,13 @@ module.exports = {
 
       if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return request.payload.address;
 
+      const response = await server.inject({
+        url: '/mapboxer',
+        payload: {
+          hi: 'hello'
+        },
+      });
+
       return parsedAddr;
     },
     validate: {

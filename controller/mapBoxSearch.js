@@ -23,8 +23,23 @@ module.exports = {
 
       const mapboxResult = await mapBoxSearch(parsedAddr);
       console.log(mapboxResult.entity.features[0]);
+      const { features } = mapboxResult.entity;
 
       if (!parsedAddr.state || !parsedAddr.city || !parsedAddr.street || !parsedAddr.zip) return request.payload.address;
+
+      const bestResult = features[0]
+      const { relevance, place_name } = bestResult;
+      return {
+        result: {
+          location: {
+            relevance,
+            place_name,
+            latitude: features[0].center[1],
+            longitude: features[0].center[0]
+          }
+        },
+        message: "Mapbox: ",
+      }
 
       return parsedAddr;
     },

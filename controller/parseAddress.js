@@ -17,11 +17,11 @@ module.exports = (server) => ({
         method: 'POST',
         url: '/mapboxer',
         payload: {
-          hi: 'hello'
+          parsedAddr
         },
       });
 
-      console.log(response);
+      console.log(response.payload);
 
       return parsedAddr;
     },
